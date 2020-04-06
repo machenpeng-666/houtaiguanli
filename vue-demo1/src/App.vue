@@ -5,17 +5,17 @@
 </template>
 <script>
 export default {
-  name : 'app',
+  name: 'app',
   data () {
     return {
-  
-    };
+
+    }
   },
-  methods:{
-  
+  methods: {
+
   }
 }
 </script>
 <style scoped lang="less">
-  
+
 </style>

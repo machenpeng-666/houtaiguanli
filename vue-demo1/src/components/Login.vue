@@ -18,58 +18,58 @@
                     <el-button type="info" @click="resetLoginForm">重置</el-button>
                </el-form-item>
             </el-form>
-            
+
         </div>
     </div>
 </template>.
 <script>
 import { log } from 'util'
 export default {
-    name:'login',
-    data () {
-        return {
-            loginForm:{
-                username:'admin',
-                password:'123456'
-            },
-            loginFormRules:{
-             username: [
-                    { required: true, message: '请输入用户名', trigger: 'blur' },
-                    { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
-            ],
-            password:[
-                     { required: true, message: '请输入用户密码', trigger: 'blur' },
-                     { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
-            ],
-        }
-        }
-        
-    },
-    methods:{
-      resetLoginForm() {
-          this.$refs.loginFormRef.resetFields()
+  name: 'login',
+  data () {
+    return {
+      loginForm: {
+        username: 'admin',
+        password: '123456'
       },
-      login() {
-          //validate 返回布尔值
-          this.$refs.loginFormRef.validate(async valid=>{
-              //如果验证失败就结束，如果成功继续发送
-              if(!valid) return console.log('验证失败');
-              //解构赋值 data是最外层data
-              const{data:res}  =await this.$http.post('login',this.loginForm)
-            //   console.log(res.data);
-              if(res.meta.status!=200) return this.$message.error('用户名或密码错误')
-            //   console.log('验证通过');
-                this.$message.success('验证通过')
-                //token保存到sessionStorage
-                window.sessionStorage.setItem('token',res.data.token)
-                //编程式导航
-                this.$router.push('/home')
-          })
+      loginFormRules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入用户密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
+        ]
       }
     }
+  },
+  methods: {
+    resetLoginForm () {
+      console.log('66')
+      this.$refs.loginFormRef.resetFields()
+    },
+    login () {
+      // validate 返回布尔值
+      this.$refs.loginFormRef.validate(async valid => {
+        // 如果验证失败就结束，如果成功继续发送
+        if (!valid) return console.log('验证失败')
+        // 解构赋值 data是最外层data
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        //   console.log(res.data);
+        if (res.meta.status != 200) return this.$message.error('用户名或密码错误')
+        //   console.log('验证通过');
+        this.$message.success('验证通过')
+        // token保存到sessionStorage
+        window.sessionStorage.setItem('token', res.data.token)
+        // 编程式导航
+        this.$router.push('/home')
+      })
+    }
+  }
 }
 </script>
-<style scoped lang="less">
+<style  lang="less">
     .login_container {
         background-color: #2b4b6b;
         height: 100%;
@@ -119,5 +119,5 @@ export default {
                     }
                     }
     }
-   
+
 </style>
